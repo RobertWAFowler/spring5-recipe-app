@@ -2,7 +2,6 @@ package guru.springframework.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,6 @@ import javax.persistence.OneToOne;
  */
 @Data
 @EqualsAndHashCode(exclude = {"recipe"})
-@ToString(exclude = {"recipe"})
 @Entity
 public class Notes {
 

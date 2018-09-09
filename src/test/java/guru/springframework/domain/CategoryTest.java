@@ -6,29 +6,32 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by robertf on 2018/09/05
+ * Created by jt on 6/17/17.
  */
 public class CategoryTest {
 
     Category category;
 
     @Before
-    public void setUp() {
+    public void setUp(){
         category = new Category();
     }
 
     @Test
-    public void getId() {
+    public void getId() throws Exception {
         Long idValue = 4L;
+
         category.setId(idValue);
+
         assertEquals(idValue, category.getId());
     }
 
     @Test
-    public void getDescription() {
+    public void getDescription() throws Exception {
     }
 
     @Test
-    public void getRecipes() {
+    public void getRecipes() throws Exception {
     }
+
 }

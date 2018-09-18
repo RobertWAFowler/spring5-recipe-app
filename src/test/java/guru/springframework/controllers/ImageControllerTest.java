@@ -13,17 +13,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ImageControllerTest {
 
@@ -77,19 +70,20 @@ public class ImageControllerTest {
         verify(imageService, times(1)).saveImageFile(anyLong(), any());
     }
 
+
     @Test
     public void renderImageFromDB() throws Exception {
-        //Given
+
+        //given
         RecipeCommand command = new RecipeCommand();
         command.setId(1L);
 
-        String s = "Fake image text";
-
+        String s = "fake image text";
         Byte[] bytesBoxed = new Byte[s.getBytes().length];
 
         int i = 0;
 
-        for (byte primByte : s.getBytes()) {
+        for (byte primByte : s.getBytes()){
             bytesBoxed[i++] = primByte;
         }
 
@@ -97,24 +91,21 @@ public class ImageControllerTest {
 
         when(recipeService.findCommandById(anyLong())).thenReturn(command);
 
-        //When
-        MockHttpServletResponse  response = mockMvc.perform(get("/recipe/1/recipeimage"))
+        //when
+        MockHttpServletResponse response = mockMvc.perform(get("/recipe/1/recipeimage"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
 
-        byte[] responseBytes = response.getContentAsByteArray();
+        byte[] reponseBytes = response.getContentAsByteArray();
 
-        //Then
-        assertEquals(s.getBytes().length,responseBytes.length);
+        assertEquals(s.getBytes().length, reponseBytes.length);
     }
 
     @Test
     public void testGetImageNumberFormatException() throws Exception {
 
-        mockMvc.perform(get("/recipe/afds/recipeimage"))
+        mockMvc.perform(get("/recipe/asdf/recipeimage"))
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("400error"));
     }
-
-
 }

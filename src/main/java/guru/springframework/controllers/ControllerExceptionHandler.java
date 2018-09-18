@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by robertf on 2018/09/18
+ * Created by jt on 7/14/17.
  */
 
 @Slf4j
@@ -17,14 +17,15 @@ public class ControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleBadRequest(Exception exception) {
-        log.error("Number format exception. Throwing a 400 BAD REQUEST.");
+    public ModelAndView handleNumberFormat(Exception exception){
+
+        log.error("Handling Number Format Exception");
         log.error(exception.getMessage());
+
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("400error");
         modelAndView.addObject("exception", exception);
-
 
         return modelAndView;
     }

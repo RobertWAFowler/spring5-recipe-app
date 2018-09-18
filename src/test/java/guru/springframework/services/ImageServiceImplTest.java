@@ -13,14 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by robertf on 2018/09/17
- */
+
 public class ImageServiceImplTest {
 
     @Mock
@@ -31,15 +26,14 @@ public class ImageServiceImplTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
         imageService = new ImageServiceImpl(recipeRepository);
     }
 
     @Test
     public void saveImageFile() throws Exception {
-
-        //Given
+        //given
         Long id = 1L;
-
         MultipartFile multipartFile = new MockMultipartFile("imagefile", "testing.txt", "text/plain",
                 "Spring Framework Guru".getBytes());
 
@@ -51,12 +45,13 @@ public class ImageServiceImplTest {
 
         ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class);
 
-        //When
+        //when
         imageService.saveImageFile(id, multipartFile);
 
-        //Then
+        //then
         verify(recipeRepository, times(1)).save(argumentCaptor.capture());
         Recipe savedRecipe = argumentCaptor.getValue();
         assertEquals(multipartFile.getBytes().length, savedRecipe.getImage().length);
     }
+
 }

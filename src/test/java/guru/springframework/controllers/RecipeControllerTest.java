@@ -40,7 +40,9 @@ public class RecipeControllerTest {
         MockitoAnnotations.initMocks(this);
 
         controller = new RecipeController(recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @Test
@@ -116,11 +118,9 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testGetRecipeBadRequest() throws Exception {
+    public void testGetRecipeNumberFormatException() throws Exception {
 
-//        when(recipeService.findById(anyLong())).thenThrow(NumberFormatException.class);
-
-        mockMvc.perform(get("/recipe/a/show"))
+        mockMvc.perform(get("/recipe/afga/show"))
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("400error"));
     }

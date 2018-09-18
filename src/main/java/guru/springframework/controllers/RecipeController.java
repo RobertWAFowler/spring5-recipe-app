@@ -82,7 +82,7 @@ public class RecipeController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NumberFormatException.class)
     public ModelAndView handleBadRequest(Exception exception) {
-        log.error("Number formate exceptioin. Throwing a 400 BAD REQUEST.");
+        log.error("Number format exception. Throwing a 400 BAD REQUEST.");
         log.error(exception.getMessage());
         ModelAndView modelAndView = new ModelAndView();
 

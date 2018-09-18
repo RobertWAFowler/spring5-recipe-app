@@ -75,7 +75,6 @@ public class RecipeController {
         modelAndView.setViewName("404error");
         modelAndView.addObject("exception", exception);
 
-
         return modelAndView;
     }
 
